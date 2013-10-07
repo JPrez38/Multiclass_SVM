@@ -87,7 +87,33 @@ object MultiSVM {
 			val svmObjective = regularizationTerm + empiricalLoss
 			//println(f"SVM Objective at iteration $iter is: $svmObjective%1.3f")
 		}
+
 		return weights
+	}
+
+	def multi_svm_test(data: Array[(Array[Double],Int)], weights: Array[Array[Double]]) : Double = {
+		var errorCount=0
+		for( x <- data) {
+			val featureVector = x._1
+			var desiredOutput = x._2
+			var output = 0
+			var maxDotted = dot(featureVector,weights(0))
+			for (i <- 1 to weights.length-1) {
+				val tmp = dot(featureVector,weights(i))
+				if (tmp > maxDotted) {
+					output = i
+					maxDotted=tmp
+				} 
+			}
+
+			val error = desiredOutput-output
+			if (error != 0) { 
+				errorCount+=1
+				println(f"Output is : $output , actual is $desiredOutput")
+			}
+
+		}
+		return errorCount/data.size.toDouble
 	}
 	
 }
