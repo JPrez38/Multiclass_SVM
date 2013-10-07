@@ -9,11 +9,11 @@ object Main {
 		val start = System.currentTimeMillis
 		//runMultiClassSVM(true,2000,pow(2,-3))
 		//runCrossValidationSVM(false,2000,pow(2,-3))
-		val featureVectors = Setup.featureGen(testData)
+		val featureVectors = Setup.featureGen(trainingData)
 		outputScaledData(featureVectors)
 
 		val end = System.currentTimeMillis
-		println("Total Running Time of all Tests: " + (end-start)/1000.0 + " seconds")
+		//println("Total Running Time of all Tests: " + (end-start)/1000.0 + " seconds")
 	}
 
 	def runMultiClassSVM(useTestData: Boolean,trainingSize:Int,lambda: Double) = {
