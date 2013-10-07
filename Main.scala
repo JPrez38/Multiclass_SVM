@@ -7,14 +7,18 @@ object Main {
 	val testData = getDataFromFile("data/mnist_test.txt")
 	def main(args: Array[String]) = {
 		val start = System.currentTimeMillis
-		runMultiClassSVM()
+		runMultiClassSVM(true,2000,.5)
 
 		val end = System.currentTimeMillis
 		println("Total Running Time of all Tests: " + (end-start)/1000.0 + " seconds")
 	}
 
-	def runMultiClassSVM() = {
+	def runMultiClassSVM(useTestData: Boolean,trainingSize:Int,lambda: Double) = {
 		val featureVectors = Setup.featureGen(trainingData)
+		val tmp = featureVectors.splitAt(trainingSize) /*splits training data set for validation set*/
+		val trainingDataSet = tmp._1
+		val validationDataSet = if(useTestData) Setup.featureGen(testData) else tmp._2
+		val svm_classifiers = MultiSVM.multi_svm_train(trainingDataSet,lambda)
 	}
 
 	def getDataFromFile(file: String) : String = {

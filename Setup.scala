@@ -3,9 +3,9 @@ package multi_svm
 import math._
 
 object Setup {
-	def featureGen(inputFile: String) : Array[(Int,Array[Double])] = {
+	def featureGen(inputFile: String) : Array[(Array[Double],Int)] = {
 		val digits = inputFile.split("\n")
-		var featureVectors = new Array[(Int,Array[Double])](digits.length)
+		var featureVectors = new Array[(Array[Double],Int)](digits.length)
 		var i = 0
 		for (digit <- digits) {
 			val temp = digit.split(",")
@@ -20,7 +20,7 @@ object Setup {
 				featureVector(i) = 2*(tmp._2(i)/255.0)-1
 			}
 
-			featureVectors(i) = (actualDigit.head,featureVector)
+			featureVectors(i) = (featureVector,actualDigit.head)
 			i+=1
 		}
 
