@@ -8,7 +8,9 @@ object Main {
 	def main(args: Array[String]) = {
 		val start = System.currentTimeMillis
 		//runMultiClassSVM(true,2000,pow(2,-3))
-		runCrossValidationSVM(false,2000,pow(2,-3))
+		//runCrossValidationSVM(false,2000,pow(2,-3))
+		val featureVectors = Setup.featureGen(testData)
+		outputScaledData(featureVectors)
 
 		val end = System.currentTimeMillis
 		println("Total Running Time of all Tests: " + (end-start)/1000.0 + " seconds")
@@ -38,5 +40,15 @@ object Main {
 		val source = Source.fromFile(file)
 		val lines = source.getLines mkString "\n"
 		return lines
+	}
+
+	def outputScaledData(data: Array[(Array[Double],Int)]) = {
+		for(x <- data) {
+			print(x._2 + " ")
+			for( i <- 0 to x._1.length-1) {
+				print((i+1)+":"+x._1(i)+" ")
+			}
+			print("\n")
+		}
 	}
 }
