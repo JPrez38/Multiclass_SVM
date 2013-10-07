@@ -109,12 +109,39 @@ object MultiSVM {
 			val error = desiredOutput-output
 			if (error != 0) { 
 				errorCount+=1
-				println(f"Output is : $output , actual is $desiredOutput")
+				//println(f"Output is : $output , actual is $desiredOutput")
 			}
 
 		}
 		return errorCount/data.size.toDouble
 	}
-	
+
+	def cross_validation_svm(data: Array[(Array[Double],Int)],lambda: Double,k: Int) : Double = {
+		val splitSize = data.length/k
+		var crossValidationSets = new Array[Array[(Array[Double],Int)]](k)
+		var j = 0
+		var testErrors = new Array[Double](k)
+		for (i <- 0 to data.length-1 by splitSize) {
+			crossValidationSets(j) = data.slice(i,i+splitSize)
+			j+=1
+		} 
+		for(i <- 0 to crossValidationSets.length-1) {
+			val validationData = crossValidationSets(i)
+			var testData = new Array[(Array[Double],Int)](0)
+			for (j <- 0 to crossValidationSets.length-1) {
+				if (j != i) {
+					testData = testData ++ crossValidationSets(j)
+				}
+			}
+			val svm_classifiers = multi_svm_train(testData,lambda)
+			testErrors(i) = multi_svm_test(validationData,svm_classifiers) 
+		}
+		var sum = 0.0
+		for (x <- testErrors) {
+			sum += x
+		}
+
+		return	sum/k
+	}	
 }
 
