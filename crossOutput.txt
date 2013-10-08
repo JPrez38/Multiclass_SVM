@@ -1,0 +1,15 @@
+Cross Validation Error: 0.157 for lambda of 0.03125
+Total Running Time of algorithm: 156.663 seconds
+Cross Validation Error: 0.143 for lambda of 0.0625
+Total Running Time of algorithm: 157.331 seconds
+Cross Validation Error: 0.134 for lambda of 0.125
+Total Running Time of algorithm: 157.739 seconds
+Cross Validation Error: 0.140 for lambda of 0.25
+Total Running Time of algorithm: 162.172 seconds
+Cross Validation Error: 0.155 for lambda of 0.5
+Total Running Time of algorithm: 162.465 seconds
+Cross Validation Error: 0.186 for lambda of 1.0
+Total Running Time of algorithm: 159.328 seconds
+Cross Validation Error: 0.213 for lambda of 2.0
+Total Running Time of algorithm: 160.849 seconds
+Total Running Time of all Tests: 1116.55 seconds
